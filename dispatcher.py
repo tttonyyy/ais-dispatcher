@@ -87,14 +87,14 @@ def udpDispatcher(server, destinations, subscribers, stop_event):
         q.task_done()
 
     # unsubscribe
-    subscribers.remove(self.q)
+    subscribers.remove(q)
 
 @click.command()
-@click.option('--host', required=True, type=(str, int), help='Host <ip> <port>')
-@click.option('--serial-port', type=str, default='', help='Serial port device')
-@click.option('--serial-rate', type=int, default=38400, help='Serial port baudrate')
-@click.option('--udp-src', type=(str, int), default=('',0), help='UDP source <ip> <port>')
-@click.option('--udp-dest', type=(str, int), default=('',0), help='UDP destination <ip> <port>')
+@click.option('--host', required=True, type=click.Tuple([str, int]), default=('',0), help='Host <ip> <port> - the local interface to attach server to')
+@click.option('--serial-port', type=str, default='', help='Serial device e.g. /dev/serial0')
+@click.option('--serial-rate', type=int, default=38400, help='Serial port baudrate (default 38400)')
+@click.option('--udp-src', type=click.Tuple([str, int]), default=('',0), help='UDP source <ip> <port> (typically same IP as --host but with a different port to listen on)')
+@click.option('--udp-dest', type=click.Tuple([str, int]), default=('',0), help='UDP forward destination <ip> <port>')
 def dispatcher(
     host,
     serial_port,
@@ -102,6 +102,10 @@ def dispatcher(
     udp_src,
     udp_dest
     ):
+
+    if not host[0]:
+        print('--host argument required')
+        exit(1)
 
     # UDP destinations
     if udp_dest[0]:

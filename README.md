@@ -29,11 +29,13 @@ The complete list of arguments are given by the --help.
 Usage: dispatcher.py [OPTIONS]
 
 Options:
-  --host <TEXT INTEGER>...      Host <ip> <port>  [required]
-  --serial-port TEXT            Serial port device
-  --serial-rate INTEGER         Serial port baudrate
-  --udp-src <TEXT INTEGER>...   UDP source <ip> <port>
-  --udp-dest <TEXT INTEGER>...  UDP destination <ip> <port>
+  --host <TEXT INTEGER>...      Host <ip> <port> - the local interface to
+                                attach server to  [required]
+  --serial-port TEXT            Serial device e.g. /dev/serial0
+  --serial-rate INTEGER         Serial port baudrate (default 38400)
+  --udp-src <TEXT INTEGER>...   UDP source <ip> <port> (typically same IP as
+                                --host but with a different port to listen on)
+  --udp-dest <TEXT INTEGER>...  UDP forward destination <ip> <port>
   --help                        Show this message and exit.
 ```
 
