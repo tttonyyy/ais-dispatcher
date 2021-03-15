@@ -1,4 +1,4 @@
-#AIS dispatcher
+# AIS dispatcher
 
 Reads serial port and sends contents to UDP destinations specified in the script.
 
