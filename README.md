@@ -39,6 +39,21 @@ Options:
   --help                        Show this message and exit.
 ```
 
+For multiple UDP destinations, create file *upd_destinations.json* in the same directory as the script with contents like this:
+
+```
+[
+  ["192.168.1.3", 1371],
+  ["192.168.1.11", 1371],
+  ["data.aishub.net", 1235],
+  ["localhost", 1371]
+]
+```
+
+Note that this is overridden by using --udp-dest on the command line.
+
+The dispatcher can be cleanly stopped with ctrl-c or `sudo kill -s SIGINT <pid>`
+
 ## As a systemd service
 
 Typically a systemd service would look like this:
