@@ -5,9 +5,11 @@ from threading import Thread, Event
 from queue import Queue, Empty
 from socketserver import BaseRequestHandler, ThreadingMixIn, TCPServer
 from time import sleep
+from os import path
 import signal # to catch ctrl-c or SIGINT
 import click # for CLI args
 import json
+import sys
 
 # this class handles inbound TCP connections and is threaded
 # IE one per opened socket
@@ -129,7 +131,8 @@ def dispatcher(
         udp_destinations = [ udp_dest ]
     else:
         try:
-            with open('udp_destinations.json') as json_file:
+            # look for file in the script's location
+            with open(path.realpath(sys.path[0])+'/udp_destinations.json') as json_file:
                 config = json.load(json_file)
                 for dest in config:
                     print(f"Adding udp destination {dest[0]} port {dest[1]}")
