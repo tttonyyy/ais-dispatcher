@@ -87,9 +87,6 @@ def udpDispatcher(server, destinations, subscribers, stop_event):
         # create a UDP socket to send with
         with socket(AF_INET, SOCK_DGRAM) as s:
 
-            # bind the socket to the UDP port
-            s.bind(server)
-
             while not stop_event.is_set():
                 try:
                     data = q.get(timeout=1)
